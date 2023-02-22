@@ -20,6 +20,7 @@ class TestCompression(unittest.TestCase):
         files_after_extraction = tar.list_directory(temp_directory)
         assert extracted_files is not None
         assert len(extracted_files) == 2
+        assert files_after_extraction == files_before_extraction
 
     def test_compress(self):
         assert True

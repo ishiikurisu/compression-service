@@ -1,6 +1,8 @@
 from random import choice
 from string import ascii_lowercase
 from os import walk, remove
+from os.path import isfile
+from shutil import rmtree
 import tarfile
 
 
@@ -10,7 +12,10 @@ def _temp_id(length):
 
 def _maybe_remove(name):
     try:
-        remove(name)
+        if isfile(name):
+            remove(name)
+        else:
+            rmtree(name, ignore_errors=True)
     except:
         pass
 
