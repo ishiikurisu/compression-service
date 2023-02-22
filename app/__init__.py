@@ -15,10 +15,12 @@ CORS(app)
 
 @app.route("/extract", methods=["POST"])
 def extract():
+    # TODO complete me!
     return "not implemented yet!"
 
 
 @app.route("/compress", methods=["POST"])
 def compress():
+    # TODO complete me!
     return "not implemented yet!"
 
