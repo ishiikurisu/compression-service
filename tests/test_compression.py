@@ -5,9 +5,6 @@ import compression as tar
 
 class TestCompression(unittest.TestCase):
 
-    def setUp(self):
-        pass
-
     def test_extract(self):
         binary = None
         with open("./tests/compressed_file.tar.gz", "rb") as fp:
@@ -23,7 +20,19 @@ class TestCompression(unittest.TestCase):
         assert files_after_extraction == files_before_extraction
 
     def test_compress(self):
-        assert True
+        files = {
+            "count.txt": "101",
+            "friends.txt": "Finn, Jake, BMO\n",
+        }
+        temp_directory = "/tmp"
+        files_before_compression = tar.list_directory(temp_directory)
+        compressed_bytes = tar.compress(files)
+        files_after_compression = tar.list_directory(temp_directory)
+        assert compressed_bytes is not None
+        assert files_after_compression == files_before_compression
+        
+        extracted_files = tar.extract(compressed_bytes)
+        assert files == extracted_files
 
 
 if __name__ == "__main__":
