@@ -34,6 +34,17 @@ class TestCompression(unittest.TestCase):
         extracted_files = tar.extract(compressed_bytes)
         assert files == extracted_files
 
+    def test_fail_to_decmopress_list(self):
+        files = [
+            "failure",
+        ]
+        temp_directory = "/tmp"
+        files_before_compression = tar.list_directory(temp_directory)
+        should_not_be_compressed_bytes = tar.compress(files)
+        files_after_compression = tar.list_directory(temp_directory)
+        assert should_not_be_compressed_bytes is None
+        assert files_before_compression == files_after_compression
+
 
 if __name__ == "__main__":
     unittest.main()

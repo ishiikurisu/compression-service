@@ -24,7 +24,11 @@ def extract():
 
     decompressed_contents = tar.extract(contents)
     if decompressed_contents is None:
-        return '{"error": "Failed to decompress file"}'
+        return (
+            '{"error": "Failed to decompress file"}',
+            400,
+            None,
+        )
 
     return json.dumps(decompressed_contents)
 
@@ -34,7 +38,11 @@ def compress():
     contents = request.json
     compressed_contents = tar.compress(contents)
     if compressed_contents is None:
-        return '{"error": "Failed to decompress file"}'
+        return (
+            '{"error": "Failed to decompress file"}',
+            400,
+            None
+        )
     return send_file(
         BytesIO(compressed_contents),
         mimetype='application/gzip',

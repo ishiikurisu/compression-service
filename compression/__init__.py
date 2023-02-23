@@ -55,7 +55,7 @@ def extract(raw_binary):
             for fn in files:
                 with open(f"{temporary_folder_name}/{fn}", "r") as fp:
                     result[fn] = fp.read()
-    except:
+    except Exception as e:
         result = None
     finally:
         _maybe_remove(temporary_file_name)
@@ -86,6 +86,8 @@ def compress(files):
 
         with open(temporary_file_name, "rb") as fp:
             raw_binary = fp.read()
+    except Exception as e:
+        raw_binary = None
     finally:
         _maybe_remove(temporary_file_name)
         _maybe_remove(temporary_folder_name)

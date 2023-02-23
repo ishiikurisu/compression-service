@@ -21,3 +21,15 @@ rm url.txt
 rm notes.md 
 rm compressed_contents.tar.gz
 
+# properly fail to extract file
+curl -X POST \
+     -F 'filename=compressed_file.tar.gz' \
+     -F 'upload=logo.png' \
+     http://localhost:5000/extract
+
+# properly fail to compress file
+curl -X POST \
+     -H 'Content-Type: application/json' \
+     -d '["failure"]' \
+     http://localhost:5000/compress
+
