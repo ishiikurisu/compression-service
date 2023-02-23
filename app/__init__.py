@@ -10,6 +10,7 @@ from flask_cors import CORS
 
 import compression as tar
 
+
 app = Flask(__name__)
 CORS(app)
 
@@ -30,6 +31,14 @@ def extract():
 
 @app.route("/compress", methods=["POST"])
 def compress():
-    # TODO complete me!
-    return "not implemented yet!"
+    contents = request.json
+    compressed_contents = tar.compress(contents)
+    if compressed_contents is None:
+        return '{"error": "Failed to decompress file"}'
+    return send_file(
+        BytesIO(compressed_contents),
+        mimetype='application/gzip',
+        as_attachment=True,
+        download_name='compressed.tar.gz',
+    )
 
